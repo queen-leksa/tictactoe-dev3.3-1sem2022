@@ -4,12 +4,11 @@ const field = [];
 let n = 3;
 const chars = ["⮾", "⦾"];
 f.setField(n, board, field);
-let stepCnt = n ** 3;
+let stepCnt = n ** 2;
 let step = 0;
 
 
 // TODO: Создать поле ввода числа на основании которого рисуется поле для игры
-
 const cells = board.querySelectorAll(".board__cell");
 
 cells.forEach((cell, i) => {
@@ -18,7 +17,10 @@ cells.forEach((cell, i) => {
             if (!field[i]) {
                 field[i] = chars[step];
                 cell.innerHTML = chars[step];
-                console.log(f.isWin(field, step, n));
+                let win = f.isWin(field, step, n)
+                if (win) {
+                    alert(win);
+                }
                 step = +!step;
                 stepCnt--;
             }
