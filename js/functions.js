@@ -112,7 +112,21 @@ const isWin = function(field, step, n) {
             return `${step} выиграл`;
         }
     }
-   
+    for (let i = 1; i < n; i++) {
+        flag = true;
+        if (field[i * n + i] !== "") {
+            if (field[i * n + i] !== field[(i - 1) * n + (i - 1)]) {
+                flag = false;
+                break;
+            }
+        } else {
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
+        return `${step} выиграл`;
+    }
 }
 
 export default {setField, isWin};
