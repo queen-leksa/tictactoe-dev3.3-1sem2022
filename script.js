@@ -18,6 +18,7 @@ cells.forEach((cell, i) => {
             if (!field[i]) {
                 field[i] = chars[step];
                 cell.innerHTML = chars[step];
+                console.log(f.isWin(field, step, n));
                 step = +!step;
                 stepCnt--;
             }

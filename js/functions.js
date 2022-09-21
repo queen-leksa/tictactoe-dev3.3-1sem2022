@@ -48,4 +48,48 @@ const setField = (n, board, field) => {
     }
 }
 
-export default {setField};
+const isWin = function(field, step, n) {
+    /*
+        [0,1,2,3,4,5,6,7,8]
+        [0,1,2]
+        [3,4,5]
+        [6,7,8]
+        [0,3,6]
+        [1,4,7]
+        [2,5,8]
+        [0,4,8]
+        [2,4,6]
+
+        n = 4???
+        1) Каждая строка в зависимости от n
+        0123
+        i % n === 0 => i + j
+        4567
+        2) Каждый столбец в зависимости от n
+        i * n + j
+        3) i === j
+        4) i === j - i
+    */
+    // field = [0,1,2,3,4,5,6,7]
+    let flag = true;
+    for (let i = 0; i < n; i++) {
+        flag = true;
+        for (let j = 1; j < n; j++) {
+            if (field[i * n + j] !== "") {
+                if (field[i * n + j] !== field[i * n + (j - 1)]) {
+                    flag = false;
+                    break;
+                }
+            } else {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            return `${step} выиграл`;
+        }
+    }
+   
+}
+
+export default {setField, isWin};
