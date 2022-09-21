@@ -12,10 +12,16 @@ let step = 0;
 
 const cells = board.querySelectorAll(".board__cell");
 
-cells.forEach(cell => {
+cells.forEach((cell, i) => {
     cell.addEventListener("click", function(e) {
-        cell.innerHTML = chars[step];
-        step = +!step;
-    })
-})
+        if (stepCnt) {
+            if (!field[i]) {
+                field[i] = chars[step];
+                cell.innerHTML = chars[step];
+                step = +!step;
+                stepCnt--;
+            }
+        }
+    });
+});
 

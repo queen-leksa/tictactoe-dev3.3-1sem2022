@@ -28,7 +28,8 @@ const setField = (n, board, field) => {
             */
 
             // field[i].push(i * n + j);
-            field.push(i * n + j);
+            // field.push(i * n + j);
+            field.push("");
         }
     }
     console.log(field);

@@ -25,6 +25,7 @@ h1 {
     align-items: center;
     cursor: pointer;
     font: 24px sans-serif;
+    user-select: none;
 }
 .board__cell.active {
     box-shadow: 2px 2px 5px 0 #0008, inset 2px 2px 5px 0 #0008;
