@@ -89,6 +89,29 @@ const isWin = function(field, step, n) {
             return `${step} выиграл`;
         }
     }
+    /*
+        field = [0,1,2,3,4,5,6,7,8]
+        i = 1 j = 0
+        1 * 3 + 0 = 3
+    */
+    console.log(n);
+    for (let j = 0; j < n; j++) {
+        flag = true;
+        for (let i = 1; i < n; i++) {
+            if (field[i * n + j] !== "") {
+                if (field[i * n + j] !== field[(i - 1) * n + j]) {
+                    flag = false;
+                    break;
+                }
+            } else {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            return `${step} выиграл`;
+        }
+    }
    
 }
 
