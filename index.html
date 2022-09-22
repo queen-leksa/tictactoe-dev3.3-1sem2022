@@ -8,8 +8,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Крестики-нолики</h1>
-    <div class="board"></div>
+    <div class="stats">
+        <h3>Статистика игры</h3>
+        <div class="stats-box"></div>
+    </div>
+    <main>
+        <h1>Крестики-нолики</h1>
+        <div class="board"></div>
+    </main>
+    <div class="control">
+        <label>Размер поля <input type="number" min="3" value="3"></label>
+        <label class="type"><input type="checkbox"></label>
+        <button class="reset">Начать новую игру</button>
+    </div>
     <script src="script.js" type="module"></script>
 </body>
 </html>
