@@ -33,7 +33,6 @@ const setField = (n, board, field) => {
             field.push("");
         }
     }
-    console.log(field);
 
     // for (let row of field) {
     //     let html = "<div class=\"board__row\">";
@@ -95,7 +94,6 @@ const isWin = function(field, step, n) {
         i = 1 j = 0
         1 * 3 + 0 = 3
     */
-    console.log(n);
     for (let j = 0; j < n; j++) {
         flag = true;
         for (let i = 1; i < n; i++) {
@@ -155,10 +153,13 @@ const setStat = function(data, s, tag) {
     localStorage.setItem("statistics", JSON.stringify(s));
     tag.innerHTML += `<div>${data}</div>`;
 }
-const playGame = function(step, board, field, chars, n) {
+const playGame = function(step, board, field, chars, n, startFlag, slider) {
     const cells = board.querySelectorAll(".board__cell");
     cells.forEach((cell, i) => {
         cell.addEventListener("click", function(e) {
+            if (!startFlag) {
+                startFlag = true;
+            }
             if (!field[i]) {
                 field[i] = chars[step];
                 cell.innerHTML = chars[step];
@@ -167,9 +168,35 @@ const playGame = function(step, board, field, chars, n) {
                     alert(win);
                 }
                 step = +!step;
+                if (step && !slider.checked) {
+                    step = autoStep(step, cells, field, chars, n);
+                }
             }
         });
     });
-    return 0;
+    return {step: 0, flag: startFlag};
+}
+const autoStep = function(step, cells, field, chars, n) {
+    let nums = field.reduce((acc, el, i) => {
+        if (el === "") {
+            acc.push(i)
+        }
+        return acc;
+    }, []);
+    if (nums.length) {
+        let index = nums[Math.floor(Math.random() * nums.length)];
+        setTimeout(function() {
+            field[index] = chars[step];
+            cells[index].innerHTML = chars[step];
+            let win = isWin(field, step, n)
+            if (win) {
+                alert(win);
+            }
+        }, 1000);
+        return +!step;
+    } else {
+        alert("Ничья!")
+    }
+    // console.log(nums);
 }
 export default {setField, isWin, setStat, playGame};
