@@ -1,4 +1,5 @@
 const setField = (n, board, field) => {
+    field = [];
     board.innerHTML = "";
     board.style.gridTemplateColumns = `repeat(${n}, 70px)`;
     board.style.gridTemplateRows = `repeat(${n}, 70px)`;
@@ -46,6 +47,7 @@ const setField = (n, board, field) => {
     for (let cell of field) {
         board.innerHTML += `<div class="board__cell">${cell}</div>`;
     }
+    return field;
 }
 const isWin = function(field, step, n) {
     /*
@@ -148,5 +150,26 @@ const isWin = function(field, step, n) {
         return `${step} выиграл`;
     }
 }
-
-export default {setField, isWin};
+const setStat = function(data, s, tag) {
+    s.push(data);
+    localStorage.setItem("statistics", JSON.stringify(s));
+    tag.innerHTML += `<div>${data}</div>`;
+}
+const playGame = function(step, board, field, chars, n) {
+    const cells = board.querySelectorAll(".board__cell");
+    cells.forEach((cell, i) => {
+        cell.addEventListener("click", function(e) {
+            if (!field[i]) {
+                field[i] = chars[step];
+                cell.innerHTML = chars[step];
+                let win = isWin(field, step, n)
+                if (win) {
+                    alert(win);
+                }
+                step = +!step;
+            }
+        });
+    });
+    return 0;
+}
+export default {setField, isWin, setStat, playGame};

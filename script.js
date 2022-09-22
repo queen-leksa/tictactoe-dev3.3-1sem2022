@@ -6,42 +6,31 @@ const sizeEl = document.querySelector("[type=\"number\"]");
 const btnEl = document.querySelector(".reset");
 
 
-const field = [];
+let field;
 let n = 3;
 const chars = ["⮾", "⦾"];
-f.setField(n, board, field);
+field = f.setField(n, board, []);
 let stepCnt = n ** 2;
 let step = 0;
 let startFlag = false;
-const statistics = [];
+let statistics = localStorage.getItem("statistics");
+if (statistics) {
+    statistics = JSON.parse(statistics);
+    statistics.forEach(st => {
+        statsEl.innerHTML += `<div>${st}</div>`;
+    })
+} else {
+    statistics = [];
+}
 
 sizeEl.addEventListener("input", (e) => {
     n = +e.target.value;
     if (!startFlag) {
-        f.setField(n, board, []);
-        statistics.push(`Выбрано поле ${n}x${n}`);
-        statsEl.innerHTML += `<div>${statistics[statistics.length - 1]}</div>`
+        field = f.setField(n, board, []);
+        f.setStat(`Выбрано поле ${n}x${n}`, statistics, statsEl);
+        step = f.playGame(step, board, field, chars, n);
     }
 });
 
-
 // TODO: Создать поле ввода числа на основании которого рисуется поле для игры
-const cells = board.querySelectorAll(".board__cell");
-
-cells.forEach((cell, i) => {
-    cell.addEventListener("click", function(e) {
-        if (stepCnt) {
-            if (!field[i]) {
-                field[i] = chars[step];
-                cell.innerHTML = chars[step];
-                let win = f.isWin(field, step, n)
-                if (win) {
-                    alert(win);
-                }
-                step = +!step;
-                stepCnt--;
-            }
-        }
-    });
-});
-
+step = f.playGame(step, board, field, chars, n);
