@@ -18,7 +18,11 @@
     </main>
     <div class="control">
         <label>Размер поля <input type="number" min="3" value="3"></label>
-        <label class="type"><input type="checkbox"></label>
+        <div class="slide">
+            <label for="type">PvE</label>
+            <input type="checkbox" id="type">
+            <label class="type" for="type">PvP</label>
+        </div>
         <button class="reset">Начать новую игру</button>
     </div>
     <script src="script.js" type="module"></script>
